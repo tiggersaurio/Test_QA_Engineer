@@ -1,4 +1,3 @@
-from webDriver import utils
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
@@ -12,8 +11,9 @@ class homePage:
         self.languageFr_option = "//button[contains(@class, 'options-list_item_option') and contains(., 'Français')]"
         self.languagePt_option = "//button[contains(@class, 'options-list_item_option') and contains(., 'Português')]"
         self.country_button = 'button.point-of-sale-selector_button'
-        self.countryCa_option = '//*[@id="pointOfSaleListId"]/li[4]/button' 
-        self.countryEu_option = '//*[@id="pointOfSaleListId"]/li[11]/button/span[1]'
+        self.country_text_button = (By.XPATH, '//*[@id="pointOfSaleSelectorId"]/span[2]')
+        self.countryCa_option = '//*[@id="pointOfSaleListId"]/li[4]/button/span[1]' 
+        self.countryEu_option = '//*[@id="pointOfSaleListId"]/li[10]/button/span[1]' 
         self.countryCh_option = '//*[@id="pointOfSaleListId"]/li[5]/button/span[1]'
         self.apply_button ='button.points-of-sale_footer_action_button'
         self.oneway_radio = "//journey-type-control-custom//input[@type='radio' and (@value='oneway' or @id='journeytypeId_1')]"
@@ -45,14 +45,17 @@ class homePage:
     def get_country_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.country_button)
     
+    def get_country_text_button(self):
+        return self.country_text_button
+    
     def get_countryCa_option(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.countryCa_option)
+        return self.driver.find_element(By.XPATH, self.countryCa_option)
     
     def get_countryEu_option(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.countryEu_option)
+        return self.driver.find_element(By.XPATH, self.countryEu_option)
     
     def get_countryCh_option(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.countryCh_option)
+        return self.driver.find_element(By.XPATH, self.countryCh_option)
     
     def get_apply_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.apply_button)
@@ -104,6 +107,9 @@ class homePage:
         
     def click_country_button(self):
         self.country_button().click()
+        
+    def click_country_text_button(self):
+        self.country_button().text()
         
     def click_countryCa_option(self):
         self.countryCa_option().click()
