@@ -3,14 +3,14 @@ import unittest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from src.utils.webDriver import WebDriverSetup
-from src.pages.home import homePage
+from src.pages.home import HomePage
 
 class TestHeader(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = WebDriverSetup.initialize_driver()
         cls.driver.get("https://nuxqa6.avtest.ink/es/")
-        cls.home = homePage(cls.driver)
+        cls.home = HomePage(cls.driver)
 
     #Ir a Ofertas y vuelos
     def test_change_page_to_flyOffers(self):

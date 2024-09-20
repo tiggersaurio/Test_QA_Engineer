@@ -4,14 +4,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from src.utils.webDriver import WebDriverSetup
-from src.pages.home import homePage
+from src.pages.home import HomePage
 
 class TestCountryChange(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = WebDriverSetup.initialize_driver()
         cls.driver.get("https://nuxqa6.avtest.ink/es/")
-        cls.home = homePage(cls.driver)
+        cls.home = HomePage(cls.driver)
         
     #Cambiar país a Canadá
     def test_change_country_to_canada(self):

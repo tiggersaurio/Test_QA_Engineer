@@ -7,7 +7,7 @@ from src.utils.webDriver import WebDriverSetup
 from src.pages.home import HomePage
 from src.pages.selectFlights import SelectFlights
 
-class TestOneway(unittest.TestCase):
+class TestRoundtrip(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = WebDriverSetup.initialize_driver()
@@ -15,7 +15,7 @@ class TestOneway(unittest.TestCase):
         cls.home = HomePage(cls.driver)
         cls.selectFlights = SelectFlights(cls.driver)
     
-    def test_bookingOneway(self):
+    def test_bookingRoundtripHome(self):
         #Cambiar idioma a Inglés
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_language_button()))
         self.home.get_language_button().click()
@@ -33,10 +33,6 @@ class TestOneway(unittest.TestCase):
         apply_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_apply_button()))
         apply_button.click()
         
-        time.sleep(1)
-        
-        self.home.click_oneway_input_radio()
-        
         #Llenar form
         origin_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_origin_button()))
         origin_button.click()
@@ -44,12 +40,12 @@ class TestOneway(unittest.TestCase):
         origin_input.send_keys("Vancouver")
         origin_input.send_keys(Keys.ENTER)
         
-        arrive_input = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_arrive_input_OW()))
+        arrive_input = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_arrive_input_RT()))
         arrive_input.send_keys("Barranquilla")
         arrive_input.send_keys(Keys.ENTER)
-        
+
         #Seleccionar pasajeros
-        pass_select = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_pass_select_OW()))
+        pass_select = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_pass_select_RT()))
         pass_select.click()
 
         passTeen_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.home.get_passTeen_button()))
@@ -65,20 +61,14 @@ class TestOneway(unittest.TestCase):
         search_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.home.get_search_button()))
         search_button.click()
         
-        time.sleep(15)
+        time.sleep(20)
         
+    def test_bookingRoundtripSelectFlights(self):
         #Seleccionar vuelos
-        self.selectFlights.click_selectPrice_button()
+        selectPrice_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.selectFlights.get_selectPrice_button()))
+        selectPrice_button.click()
         
-        self.selectFlights.click_selectBasic_button()
-                
-        time.sleep(10)
-        
-        continue_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.selectFlights.get_continue_button()))
-        continue_button.click()
-        
-        time.sleep(10)
-
+        time.sleep(5)
     
     @classmethod
     def tearDownClass(cls):

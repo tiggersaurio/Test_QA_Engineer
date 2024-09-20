@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
-
-class homePage:
+class HomePage:
     def __init__(self,driver):
         self.driver = driver
         self.language_button = 'button.dropdown_trigger.dropdown_trigger--active'
@@ -20,13 +21,15 @@ class homePage:
         self.flyOffers_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[1]/a'
         self.destination_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[2]/a'
         self.newRoutes_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[4]/a'
-        self.container = '//*[@id="searchContentId_OW"]/div[1]/station-control-custom/div/div[1]/div[2]/div[3]/div/input'
-        self.oneway_input_radio = "journeytypeId_1"
+        self.container = 'ibeSearchJourneyTypeControlId'
+        self.oneway_input_radio = 'journeytypeId_1'
         self.origin_button = "button#originBtn.control_field_button"
         self.origin_input = "input.control_field_input"
-        self.arrive_input = '//*[@id="searchContentId_RT"]/div[1]/station-control-custom/div/div[1]/div[2]/div[3]/div/input'
+        self.arrive_input_OW = '//*[@id="searchContentId_OW"]/div[1]/station-control-custom/div/div[1]/div[2]/div[3]/div/input'
+        self.arrive_input_RT = '//*[@id="searchContentId_RT"]/div[1]/station-control-custom/div/div[1]/div[2]/div[3]/div/input'
         self.destination_select = "BOG"
-        self.pass_select = '//*[@id="searchContentId_OW"]/div[3]/pax-control-custom/div/div/div[2]/div/button'
+        self.pass_select_RT = '//*[@id="searchContentId_RT"]/div[3]/pax-control-custom/div/div/div[2]/div/button'
+        self.pass_select_OW = '//*[@id="searchContentId_OW"]/div[3]/pax-control-custom/div/div/div[2]/div/button'
         self.passTeen_button = '//*[@id="paxControlSearchId"]/div/div[2]/div[1]/ul/li[2]/div[2]/ibe-minus-plus/div/button[2]'
         self.passChild_button = '//*[@id="paxControlSearchId"]/div/div[2]/div[1]/ul/li[3]/div[2]/ibe-minus-plus/div/button[2]'
         self.passInfant_button = '//*[@id="paxControlSearchId"]/div/div[2]/div[1]/ul/li[4]/div[2]/ibe-minus-plus/div/button[2]'
@@ -34,7 +37,6 @@ class homePage:
         self.cheapFlights_option = '//*[@id="footerNavListId-0"]/li[1]/a'
         self.weAre_option = '//*[@id="footerNavListId-1"]/li[1]/a'
         self.legalInfo_option = '//*[@id="footerNavListId-3"]/li[1]/a'
-        
         
     def get_language_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.language_button)
@@ -82,10 +84,12 @@ class homePage:
         return self.driver.find_element(By.XPATH, self.newRoutes_option)
     
     def get_container(self):
-        return self.driver.find_element(By.XPATH, self.container)
+        return self.driver.find_element(By.ID, self.container)
     
     def get_oneway_input_radio(self):
-        return self.driver.find_element(By.ID, self.oneway_input_radio)
+        return WebDriverWait(self.driver, 30).until(
+            EC.presence_of_element_located((By.ID, self.oneway_input_radio))
+        )
 
     def get_origin_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.origin_button)
@@ -93,14 +97,20 @@ class homePage:
     def get_origin_input(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.origin_input)
     
-    def get_arrive_input(self):
-        return self.driver.find_element(By.XPATH, self.arrive_input)
+    def get_arrive_input_RT(self):
+        return self.driver.find_element(By.XPATH, self.arrive_input_RT)
+    
+    def get_arrive_input_OW(self):
+        return self.driver.find_element(By.XPATH, self.arrive_input_OW)
 
     def get_destination_select(self):
         return self.driver.find_element(By.ID, self.destination_select)
 
-    def get_pass_select(self):
-        return self.driver.find_element(By.XPATH, self.pass_select)
+    def get_pass_select_RT(self):
+        return self.driver.find_element(By.XPATH, self.pass_select_RT)
+    
+    def get_pass_select_OW(self):
+        return self.driver.find_element(By.XPATH, self.pass_select_OW)
 
     def get_passTeen_button(self):
         return self.driver.find_element(By.XPATH, self.passTeen_button)
@@ -125,72 +135,32 @@ class homePage:
     
     
     #Metodos
-
-    def click_language_button(self):
-        self.language_button().click()
-        
-    def click_languageEn_option(self):
-        self.languageEn_option().click()
-        
-    def click_languageEs_option(self):
-        self.languageEs_option().click()
-        
-    def click_languageFr_option(self):
-        self.languageFr_option().click()
-        
-    def click_languagePt_option(self):
-        self.languagePt_option().click()
-        
-    def click_country_button(self):
-        self.country_button().click()
-        
-    def click_country_text_button(self):
-        self.country_button().text()
-        
-    def click_countryCa_option(self):
-        self.countryCa_option().click()
-        
-    def click_countryEu_option(self):
-        self.countryEu_option().click()
-        
-    def click_countryCh_option(self):
-        self.countryCh_option().click()
-        
-    def click_apply_button(self):
-        self.apply_button().click()
-        
-    def click_headerOffers_button(self):
-        self.headerOffers_button().click()
-        
-    def click_flyOffers_option(self):
-        self.flyOffers_option().click()
-        
-    def click_destination_option(self):
-        self.destination_option().click()
-        
-    def click_newRoutes_option(self):
-        self.newRoutes_option().click()
-        
-    # def click_container(self):
-    #     self.get_container().click()
         
     def click_oneway_input_radio(self):
-        self.get_oneway_input_radio().click()
+        oneway_radio = self.get_oneway_input_radio()
+        self.driver.execute_script("arguments[0].click();", oneway_radio)
 
     def set_origin(self, origin):
         self.get_origin_button().click()
         self.get_origin_input().send_keys(origin)
         self.get_origin_input().send_keys(Keys.TAB)
         
-    def set_arrive(self, arrive):
-        self.get_arrive_input().click()
-        self.get_arrive_input().send_keys(arrive)
+    def set_arrive_RT(self, arrive):
+        self.get_arrive_input_RT().click()
+        self.get_arrive_input_RT().send_keys(arrive)
+        
+    def set_arrive_OW(self, arrive):
+        self.get_arrive_input_OW().click()
+        self.get_arrive_input_OW().send_keys(arrive)
 
     def click_destination_select(self):
         self.get_destination_select().click()
 
-    def click_pass_select(self):
-        self.get_pass_select().click()
+    def click_pass_select_RT(self):
+        self.get_pass_select_RT().click()
+        
+    def click_pass_select_OW(self):
+        self.get_pass_select_OW().click()
 
     def click_passTeen_button(self):
         self.get_passTeen_button().click()
@@ -203,12 +173,3 @@ class homePage:
         
     def click_search_button(self):
         self.get_search_button().click()
-        
-    def click_cheapFlights_option(self):
-        self.cheapFlights_option().click()
-        
-    def click_weAre_option(self):
-        self.weAre_option().click()
-        
-    def click_legalInfo_option(self):
-        self.legalInfo_option().click()
