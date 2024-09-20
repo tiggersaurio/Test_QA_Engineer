@@ -20,9 +20,11 @@ class homePage:
         self.flyOffers_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[1]/a'
         self.destination_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[2]/a'
         self.newRoutes_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[4]/a'
-        self.oneway_radio = "//journey-type-control-custom//input[@type='radio' and (@value='oneway' or @id='journeytypeId_1')]"
+        self.container = '//*[@id="searchContentId_OW"]/div[1]/station-control-custom/div/div[1]/div[2]/div[3]/div/input'
+        self.oneway_input_radio = "journeytypeId_1"
         self.origin_button = "button#originBtn.control_field_button"
         self.origin_input = "input.control_field_input"
+        self.arrive_input = '//*[@id="searchContentId_RT"]/div[1]/station-control-custom/div/div[1]/div[2]/div[3]/div/input'
         self.destination_select = "BOG"
         self.pass_select = '//*[@id="searchContentId_OW"]/div[3]/pax-control-custom/div/div/div[2]/div/button'
         self.passTeen_button = '//*[@id="paxControlSearchId"]/div/div[2]/div[1]/ul/li[2]/div[2]/ibe-minus-plus/div/button[2]'
@@ -79,14 +81,20 @@ class homePage:
     def get_newRoutes_option(self):
         return self.driver.find_element(By.XPATH, self.newRoutes_option)
     
-    def get_oneway_radio(self):
-        return self.driver.find_element(By.XPATH, self.oneway_radio)
+    def get_container(self):
+        return self.driver.find_element(By.XPATH, self.container)
+    
+    def get_oneway_input_radio(self):
+        return self.driver.find_element(By.ID, self.oneway_input_radio)
 
     def get_origin_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.origin_button)
 
     def get_origin_input(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.origin_input)
+    
+    def get_arrive_input(self):
+        return self.driver.find_element(By.XPATH, self.arrive_input)
 
     def get_destination_select(self):
         return self.driver.find_element(By.ID, self.destination_select)
@@ -163,13 +171,20 @@ class homePage:
     def click_newRoutes_option(self):
         self.newRoutes_option().click()
         
-    def click_oneway_radio(self):
-        self.get_oneway_radio().click()
+    # def click_container(self):
+    #     self.get_container().click()
+        
+    def click_oneway_input_radio(self):
+        self.get_oneway_input_radio().click()
 
     def set_origin(self, origin):
         self.get_origin_button().click()
         self.get_origin_input().send_keys(origin)
         self.get_origin_input().send_keys(Keys.TAB)
+        
+    def set_arrive(self, arrive):
+        self.get_arrive_input().click()
+        self.get_arrive_input().send_keys(arrive)
 
     def click_destination_select(self):
         self.get_destination_select().click()

@@ -21,6 +21,7 @@ class TestFooter(unittest.TestCase):
         
         self.assertIn('/es/ofertas-destinos/ofertas-de-vuelos/', self.driver.current_url)
     
+    #Ir a Vuelos Somos Avianca
     def test_change_page_to_weAre(self):
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_weAre_option()))
         self.home.get_weAre_option().click()
@@ -28,7 +29,8 @@ class TestFooter(unittest.TestCase):
         time.sleep(2)
         
         self.assertIn('/es/sobre-nosotros/somos-avianca/', self.driver.current_url)
-        
+    
+    #Ir a Información legal  
     def test_change_page_to_legalInfo(self):
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_legalInfo_option()))
         self.home.get_legalInfo_option().click()
