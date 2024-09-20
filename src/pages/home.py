@@ -16,6 +16,10 @@ class homePage:
         self.countryEu_option = '//*[@id="pointOfSaleListId"]/li[10]/button/span[1]' 
         self.countryCh_option = '//*[@id="pointOfSaleListId"]/li[5]/button/span[1]'
         self.apply_button ='button.points-of-sale_footer_action_button'
+        self.headerOffers_button = '//*[@id="mainHeaderDiv"]/main-header-container/main-header-layout-custom/header/div[2]/div[2]/primary-nav-custom/nav/ul/li[2]/button'
+        self.flyOffers_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[1]/a'
+        self.destination_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[2]/a'
+        self.newRoutes_option = '//*[@id="primary-nav-sub-menu-1"]/div/div/div[2]/div/nav/ul/li[4]/a'
         self.oneway_radio = "//journey-type-control-custom//input[@type='radio' and (@value='oneway' or @id='journeytypeId_1')]"
         self.origin_button = "button#originBtn.control_field_button"
         self.origin_input = "input.control_field_input"
@@ -59,6 +63,18 @@ class homePage:
     
     def get_apply_button(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.apply_button)
+    
+    def get_headerOffers_button(self):
+        return self.driver.find_element(By.XPATH, self.headerOffers_button)
+    
+    def get_flyOffers_option(self):
+        return self.driver.find_element(By.XPATH, self.flyOffers_option)
+    
+    def get_destination_option(self):
+        return self.driver.find_element(By.XPATH, self.destination_option)
+    
+    def get_newRoutes_option(self):
+        return self.driver.find_element(By.XPATH, self.newRoutes_option)
     
     def get_oneway_radio(self):
         return self.driver.find_element(By.XPATH, self.oneway_radio)
@@ -122,6 +138,18 @@ class homePage:
         
     def click_apply_button(self):
         self.apply_button().click()
+        
+    def click_headerOffers_button(self):
+        self.headerOffers_button().click()
+        
+    def click_flyOffers_option(self):
+        self.flyOffers_option().click()
+        
+    def click_destination_option(self):
+        self.destination_option().click()
+        
+    def click_newRoutes_option(self):
+        self.newRoutes_option().click()
         
     def click_oneway_radio(self):
         self.get_oneway_radio().click()
