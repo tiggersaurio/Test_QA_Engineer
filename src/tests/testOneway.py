@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.utils.webDriver import WebDriverSetup
 from src.pages.home import HomePage
 from src.pages.selectFlights import SelectFlights
+from src.pages.passengers import Passengers
 
 class TestOneway(unittest.TestCase):
     @classmethod
@@ -14,71 +15,85 @@ class TestOneway(unittest.TestCase):
         cls.driver.get("https://nuxqa6.avtest.ink/es/")
         cls.home = HomePage(cls.driver)
         cls.selectFlights = SelectFlights(cls.driver)
+        cls.passengers = Passengers(cls.driver)
     
+    def wait_and_click(self, element):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(element)).click()
+
+    def wait_and_send_keys(self, element, keys):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(element)).send_keys(keys)
+
+    #Info para datos de pasajeros
+    def fill_passenger_info(self, passenger_type, first_name, last_name):
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'gender'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'gender_select'))
+        self.wait_and_send_keys(self.passengers.get_passenger_element(passenger_type, 'first_name'), first_name)
+        self.wait_and_send_keys(self.passengers.get_passenger_element(passenger_type, 'last_name'), last_name)
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'day'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'day_select'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'month'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'month_select'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'year'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'year_select'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'nationality'))
+        self.wait_and_click(self.passengers.get_passenger_element(passenger_type, 'nationality_select'))
+
     def test_bookingOneway(self):
-        #Cambiar idioma a Inglés
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_language_button()))
-        self.home.get_language_button().click()
-
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_languageEn_option()))
-        self.home.get_languageEn_option().click()
+        # Cambiar idioma
+        self.wait_and_click(self.home.get_language_button())
+        self.wait_and_click(self.home.get_languageEn_option())
         
-        #Cambiar país
-        country_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_country_button()))
-        country_button.click()
-
-        canada_option = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_countryCa_option()))
-        canada_option.click()
-
-        apply_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_apply_button()))
-        apply_button.click()
+        # Cambiar país
+        self.wait_and_click(self.home.get_country_button())
+        self.wait_and_click(self.home.get_countryCa_option())
+        self.wait_and_click(self.home.get_apply_button())
         
         time.sleep(1)
         
         self.home.click_oneway_input_radio()
         
-        #Llenar form
-        origin_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_origin_button()))
-        origin_button.click()
-        origin_input = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_origin_input()))
-        origin_input.send_keys("Vancouver")
-        origin_input.send_keys(Keys.ENTER)
+        # Llenar datos
+        self.wait_and_click(self.home.get_origin_button())
+        self.wait_and_send_keys(self.home.get_origin_input(), "Vancouver" + Keys.ENTER)
+        time.sleep(2)
+        self.wait_and_send_keys(self.home.get_arrive_input_OW(), "Barranquilla" + Keys.ENTER)
         
-        arrive_input = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_arrive_input_OW()))
-        arrive_input.send_keys("Barranquilla")
-        arrive_input.send_keys(Keys.ENTER)
+        # Selección de pasajeros
+        self.wait_and_click(self.home.get_pass_select_OW())
+        self.wait_and_click(self.home.get_passTeen_button())
+        self.wait_and_click(self.home.get_passChild_button())
+        self.wait_and_click(self.home.get_passInfant_button())
+
+        self.wait_and_click(self.home.get_search_button())
         
-        #Seleccionar pasajeros
-        pass_select = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_pass_select_OW()))
-        pass_select.click()
-
-        passTeen_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.home.get_passTeen_button()))
-        passTeen_button.click()
-
-        passChild_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.home.get_passChild_button()))
-        passChild_button.click()
-
-        passInfant_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.home.get_passInfant_button()))
-        passInfant_button.click()
-
-        #buscar
-        search_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.home.get_search_button()))
-        search_button.click()
+        time.sleep(5)
         
-        time.sleep(15)
-        
-        #Seleccionar vuelos
+        # Seleccionar vuelo
         self.selectFlights.click_selectPrice_button()
-        
         self.selectFlights.click_selectBasic_button()
                 
-        time.sleep(10)
+        time.sleep(5)
         
-        continue_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.selectFlights.get_continue_button()))
-        continue_button.click()
+        self.wait_and_click(self.selectFlights.get_continue_button())
         
-        time.sleep(10)
+        time.sleep(5)
 
+        # Llenar información de pasajeros
+        self.fill_passenger_info('adult', "Pan", "Naranjo")
+        self.fill_passenger_info('infant', "Coco", "Grajales")
+        self.fill_passenger_info('teen', "Shakira", "Pineda")
+        self.fill_passenger_info('child', "Chayanne", "Emilio")
+        
+        # Información de contacto
+        self.wait_and_click(self.passengers.get_contact_element('prefix'))
+        self.wait_and_click(self.passengers.get_contact_element('prefix_select'))
+        self.wait_and_send_keys(self.passengers.get_contact_element('phone'), "3013114116")
+        self.wait_and_send_keys(self.passengers.get_contact_element('email'), "daniela@test.com")
+        
+        self.passengers.click_tyc_button()
+        self.passengers.click_continue_button()
+        
+        time.sleep(2)
     
     @classmethod
     def tearDownClass(cls):

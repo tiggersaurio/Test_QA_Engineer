@@ -22,6 +22,7 @@ class TestLanguageChange(unittest.TestCase):
 
         time.sleep(2)
         
+        #Validar el cambio
         self.assertIn('/en/', self.driver.current_url)
        
     #Cambiar idioma a Español
@@ -34,6 +35,7 @@ class TestLanguageChange(unittest.TestCase):
 
         time.sleep(2)
 
+        #Validar el cambio
         self.assertIn('/es/', self.driver.current_url)
         
     #Cambiar idioma a Francés   
@@ -46,6 +48,7 @@ class TestLanguageChange(unittest.TestCase):
 
         time.sleep(2)
 
+        #Validar el cambio
         self.assertIn('/fr/', self.driver.current_url)
     
     #Cambiar idioma a Portugues    
@@ -58,6 +61,7 @@ class TestLanguageChange(unittest.TestCase):
 
         time.sleep(2)
 
+        #Validar el cambio
         self.assertIn('/pt/', self.driver.current_url)
         
     @classmethod

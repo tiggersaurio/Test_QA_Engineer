@@ -26,8 +26,8 @@ class TestCountryChange(unittest.TestCase):
 
         time.sleep(2)
 
+        #Se valida el cambio de país
         country_text_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(self.home.get_country_text_button()))
-
         self.assertEqual(country_text_button.text, 'Canadá\nUSD', "El texto del botón de país no es 'Canada USD'")
      
     #Cambiar país a Chile
@@ -43,8 +43,8 @@ class TestCountryChange(unittest.TestCase):
 
         time.sleep(2)
 
+        #Se valida el cambio de país
         country_text_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(self.home.get_country_text_button()))
-
         self.assertEqual(country_text_button.text, 'Chile\nUSD', "El texto del botón de país no es 'Chile USD'")
     
     #Cambiar país a España   
@@ -60,8 +60,8 @@ class TestCountryChange(unittest.TestCase):
 
         time.sleep(2)
 
+        #Se valida el cambio de país
         country_text_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(self.home.get_country_text_button()))
-
         self.assertEqual(country_text_button.text, 'España\n€', "El texto del botón de país no es 'España €'")   
 
     @classmethod

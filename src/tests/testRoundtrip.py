@@ -6,17 +6,19 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.utils.webDriver import WebDriverSetup
 from src.pages.home import HomePage
 from src.pages.selectFlights import SelectFlights
+from src.pages.passengers import Passengers
 
-class TestRoundtrip(unittest.TestCase):
+class TestOneway(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = WebDriverSetup.initialize_driver()
         cls.driver.get("https://nuxqa6.avtest.ink/es/")
         cls.home = HomePage(cls.driver)
         cls.selectFlights = SelectFlights(cls.driver)
+        cls.passengers = Passengers(cls.driver)
     
     def test_bookingRoundtripHome(self):
-        #Cambiar idioma a Inglés
+        #Cambiar idioma
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_language_button()))
         self.home.get_language_button().click()
 
@@ -33,7 +35,7 @@ class TestRoundtrip(unittest.TestCase):
         apply_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_apply_button()))
         apply_button.click()
         
-        #Llenar form
+        #Llenar datos
         origin_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_origin_button()))
         origin_button.click()
         origin_input = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.home.get_origin_input()))
@@ -61,14 +63,8 @@ class TestRoundtrip(unittest.TestCase):
         search_button = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable(self.home.get_search_button()))
         search_button.click()
         
-        time.sleep(20)
-        
-    def test_bookingRoundtripSelectFlights(self):
-        #Seleccionar vuelos
-        selectPrice_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(self.selectFlights.get_selectPrice_button()))
-        selectPrice_button.click()
-        
-        time.sleep(5)
+        time.sleep(10)      
+    
     
     @classmethod
     def tearDownClass(cls):

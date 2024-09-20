@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -25,7 +24,6 @@ class SelectFlights:
         return self.driver.find_element(By.XPATH, self.continue_button)
     
     #Metodos
-
     def click_selectPrice_button(self):
         selectPrice_button = self.get_selectPrice_button()
         self.driver.execute_script("arguments[0].click();", selectPrice_button)

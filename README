@@ -1,0 +1,38 @@
+# Test QA Engineer
+Este repositorio contiene casos de prueba automatizados, utilizando Python y Selenium.
+
+## Requisitos Previos
+Python (Última versión recomendada)
+pip (Gestor de paquetes de Python)
+
+## Instalación
+1. Selenium
+pip install selenium
+2. WebDriver Manager:
+pip install webdriver_manager
+
+## Ejecución de Casos de Prueba
+Para ejecutar los casos de prueba, usar los siguientes comandos en la terminal:
+
+Prueba de Viaje de Ida - Punto 1
+python -m src.tests.testOneWay
+
+Prueba de Viaje ida y vuelta - Punto 2
+python -m src.tests.testRoundtrip
+
+Prueba de Cambio de Idioma - Punto 3
+python -m src.tests.testLanguageChange
+
+Prueba de Cambio de País - Punto 4
+python -m src.tests.testCountryChange
+
+Prueba del Header - Punto 5
+python -m src.tests.testHeader
+
+Prueba del Footer - Punto 6
+python -m src.tests.testFooter
+
+## Notas
+Por necesidad se colocan time.sleep() con tiempos prolongados para evitar fallas por conectividad o demoras inesperadas.
+Asegúrate de tener todos los controladores actualizados para evitar problemas de compatibilidad.
+Los casos de prueba están ubicados en el directorio src/tests/.
