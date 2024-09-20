@@ -29,6 +29,9 @@ class homePage:
         self.passChild_button = '//*[@id="paxControlSearchId"]/div/div[2]/div[1]/ul/li[3]/div[2]/ibe-minus-plus/div/button[2]'
         self.passInfant_button = '//*[@id="paxControlSearchId"]/div/div[2]/div[1]/ul/li[4]/div[2]/ibe-minus-plus/div/button[2]'
         self.search_button = 'searchButton'
+        self.cheapFlights_option = '//*[@id="footerNavListId-0"]/li[1]/a'
+        self.weAre_option = '//*[@id="footerNavListId-1"]/li[1]/a'
+        self.legalInfo_option = '//*[@id="footerNavListId-3"]/li[1]/a'
         
         
     def get_language_button(self):
@@ -103,6 +106,15 @@ class homePage:
     def get_search_button(self):
         return self.driver.find_element(By.ID, self.search_button)
     
+    def get_cheapFlights_option(self):
+        return self.driver.find_element(By.XPATH, self.cheapFlights_option)
+    
+    def get_weAre_option(self):
+        return self.driver.find_element(By.XPATH, self.weAre_option)
+    
+    def get_legalInfo_option(self):
+        return self.driver.find_element(By.XPATH, self.legalInfo_option)
+    
     
     #Metodos
 
@@ -176,3 +188,12 @@ class homePage:
         
     def click_search_button(self):
         self.get_search_button().click()
+        
+    def click_cheapFlights_option(self):
+        self.cheapFlights_option().click()
+        
+    def click_weAre_option(self):
+        self.weAre_option().click()
+        
+    def click_legalInfo_option(self):
+        self.legalInfo_option().click()
